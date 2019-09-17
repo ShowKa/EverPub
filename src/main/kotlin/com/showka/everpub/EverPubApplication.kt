@@ -1,4 +1,4 @@
-package com.example.everpub
+package com.showka.everpub
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class EverPubApplication
 
 fun main(args: Array<String>) {
-	runApplication<EverPubApplication>(*args)
+    runApplication<EverPubApplication>(*args)
 }
