@@ -16,7 +16,7 @@ class Sentence internal constructor(private val element: Element) {
      * テキスト取得。
      */
     fun getText(): String {
-        return this.element.textContent
+        return this.element.textContent.trim()
     }
 
     /**
@@ -39,16 +39,23 @@ class Sentence internal constructor(private val element: Element) {
     }
 
     /**
+     * TODO 不要かな
      * 1文字以上のテキストノードを含んでいれば返却。
      */
-    private fun getChildTextNode(): Node? {
-        val children = this.element.childNodes
+    private fun getDescendantsTextNode(_element: Element): Node? {
+        val children = _element.childNodes
         for (i in 0 until children.length) {
             val child = children.item(i)
             if (child.nodeType == Node.TEXT_NODE) {
-                val text = child.nodeValue
-                if (text.isNotEmpty()) {
+                val text = child.nodeValue.trim()
+                if (text.isNotBlank()) {
                     return child
+                }
+                continue
+            }
+            if (child.nodeType == Node.ELEMENT_NODE) {
+                if (child is Element) {
+                    return getDescendantsTextNode(child)
                 }
             }
         }
