@@ -1,7 +1,6 @@
 package com.showka.everpub.evernote
 
 import org.w3c.dom.Element
-import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 
 class Sentence internal constructor(private val element: Element) {
@@ -15,7 +14,7 @@ class Sentence internal constructor(private val element: Element) {
     /**
      * テキスト取得。
      */
-    fun getText(): String {
+    fun getPlainText(): String {
         return this.element.textContent.trim()
     }
 
@@ -31,35 +30,12 @@ class Sentence internal constructor(private val element: Element) {
             return true
         }
         // 全角スペース置換したtext
-        val text = this.getText().replace("　", "")
+        // isBlank = 半角スペースだけの場合も空としてくれる。
+        val text = this.getPlainText().replace("　", "")
         if (text.isBlank()) {
             return true
         }
         return false
-    }
-
-    /**
-     * TODO 不要かな
-     * 1文字以上のテキストノードを含んでいれば返却。
-     */
-    private fun getDescendantsTextNode(_element: Element): Node? {
-        val children = _element.childNodes
-        for (i in 0 until children.length) {
-            val child = children.item(i)
-            if (child.nodeType == Node.TEXT_NODE) {
-                val text = child.nodeValue.trim()
-                if (text.isNotBlank()) {
-                    return child
-                }
-                continue
-            }
-            if (child.nodeType == Node.ELEMENT_NODE) {
-                if (child is Element) {
-                    return getDescendantsTextNode(child)
-                }
-            }
-        }
-        return null
     }
 
     /**
