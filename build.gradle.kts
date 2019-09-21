@@ -39,6 +39,8 @@ dependencies {
     }
     // Evernote
     implementation("com.evernote:evernote-api:1.25.1")
+    // Kuromoji
+    implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
 }
 
 tasks.withType<Test> {
