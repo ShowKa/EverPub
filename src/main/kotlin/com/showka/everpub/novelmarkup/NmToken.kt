@@ -24,7 +24,6 @@ class NmToken(private val token: Token) {
 
     /** 漢字グレード取得 */
     fun getHanGrade(): NmHanGrade {
-        // 必要になったときだけ評価
         val hanGrade: NmHanGrade = this.hanGrade ?: NmHanGradeFile.determine(this)
         this.hanGrade = hanGrade
         return hanGrade
