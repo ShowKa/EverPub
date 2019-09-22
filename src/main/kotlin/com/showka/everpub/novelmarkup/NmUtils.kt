@@ -1,14 +1,5 @@
 package com.showka.everpub.novelmarkup
 
-import com.atilika.kuromoji.ipadic.Token
-
-/**
- * 漢字グレード判定
- */
-internal fun determineGrade(token: Token): NmHanGrade {
-    return NmHanGrade.MIDDLE
-}
-
 /**
  * カタカナからひらがなへのコンバート
  * 注意 : カタカナ以外は対象外。

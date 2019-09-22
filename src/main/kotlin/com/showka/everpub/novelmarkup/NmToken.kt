@@ -7,6 +7,7 @@ import com.atilika.kuromoji.ipadic.Token
  */
 class NmToken(private val token: Token) {
 
+    /** 漢字グレード(必要になったら代入) */
     private var hanGrade: NmHanGrade? = null
 
     /** 表層形取得 */
@@ -21,8 +22,9 @@ class NmToken(private val token: Token) {
     /** 位置取得 */
     fun getPosition(): Int = this.token.position
 
-    /** 漢字レベル */
+    /** 漢字グレード取得 */
     fun getHanGrade(): NmHanGrade {
+        // 必要になったときだけ評価
         val hanGrade: NmHanGrade = this.hanGrade ?: NmHanGradeFile.determine(this)
         this.hanGrade = hanGrade
         return hanGrade

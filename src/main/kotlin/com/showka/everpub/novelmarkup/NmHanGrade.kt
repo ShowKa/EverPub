@@ -20,6 +20,5 @@ enum class NmHanGrade(private val value: Int) {
 
     fun getValue(): Int = this.value
 
-    fun isLesser(other: NmHanGrade): Boolean = (this.value < other.value)
-    fun isGreater(other: NmHanGrade): Boolean = (this.value > other.value)
+    fun isHigher(other: NmHanGrade): Boolean = (this.value > other.value)
 }
