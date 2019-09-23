@@ -21,11 +21,9 @@ class Note(file: File) {
     }
 
     fun getSentences(): Sentences {
-        val ss = Sentences()
         val divs = this.getDivisions()
         val list = divs.map { div -> Sentence(div) }.toList()
-        ss.addAll(list)
-        return ss
+        return Sentences(list)
     }
 
     internal fun getRoot(): Element {

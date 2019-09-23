@@ -1,7 +1,10 @@
 package com.showka.everpub.evernote
 
-class Sentences() : ArrayList<Sentence>() {
+class Sentences(sentenceList: List<Sentence>) : ArrayList<Sentence>() {
 
+    init {
+        this.addAll(sentenceList)
+    }
 }
 
 
