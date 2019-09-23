@@ -1,12 +1,12 @@
 package com.showka.everpub.publish
 
-class Paragraph(private val texts: List<PublishingText>) {
+class Paragraph(private val texts: MutableList<PublishingText>) {
 
     // constructor
     init {
-        require(texts.isNotEmpty()) {
-            "1行以上のテキストを設定してください。"
-        }
+        // 空行は不要なので除去
+        texts.removeIf { it.isBlank() }
+        require(texts.isNotEmpty()) { "1行以上のテキストを設定してください。" }
     }
 
     // method
@@ -18,10 +18,5 @@ class Paragraph(private val texts: List<PublishingText>) {
 
     /** 地の文パラグラフならtrue */
     fun isDescriptive(): Boolean = (!this.isQuote() && !this.isBlockSeparator())
-
-    // override
-    override fun toString(): String {
-        return ""
-    }
 
 }

@@ -4,37 +4,61 @@ import com.showka.everpub.novelmarkup.NmLine
 
 abstract class PublishingBook(val title: String, lines: List<NmLine>) {
 
-    private val paragraphs = mutableListOf<Paragraph>()
+    val paragraphs = mutableListOf<Paragraph>()
 
     init {
         // 行リスト
         var tmpList = mutableListOf<PublishingText>()
-        // 前行
-        var prev: PublishingText? = null
+        // コメント処理中ならtrue
+        var inComment = false
+        // 最初と最後の空行を予め除去
+        val trimmed = lines.dropWhile { it.isBlank() }.dropLastWhile { it.isBlank() }
         // パラグラフ生成
-        for (line in lines) {
-            if (!line.isBlank()) {
-                // 空じゃない
-                // 行追加
-                var text = PublishingText(line, prev)
-                prev = text
-                tmpList.add(text)
-                // ブロック分割など、パラグラフ終了条件を満たす場合、次のパラグラフに移行
-                if (text.shouldBeEndOfParagraph()) {
-                    var paragraph = Paragraph(tmpList)
+        for (line in trimmed) {
+            val text = PublishingText(line)
+            // コメントテキスト
+            // コメントボーダー内の行はすべて対象外
+            if (text.isCommentBorder()) {
+                inComment = !inComment
+                continue
+            }
+            if (inComment) {
+                continue
+            }
+            // 通常テキスト
+            when {
+                text.shouldBeOneInParagraph() -> {
+                    if (tmpList.isNotEmpty()) {
+                        val paragraph = Paragraph(tmpList)
+                        paragraphs.add(paragraph)
+                        tmpList = mutableListOf()
+                    }
+                    tmpList.add(text)
+                    val paragraph = Paragraph(tmpList)
                     paragraphs.add(paragraph)
                     tmpList = mutableListOf()
                 }
-            } else {
-                // 行リストをパラグラフに
-                // ただし行リストが空の場合は次の処理へ
-                if (tmpList.isEmpty()) {
-                    continue
+                text.shouldBeStartOfParagraph() -> {
+                    if (tmpList.isNotEmpty()) {
+                        val paragraph = Paragraph(tmpList)
+                        paragraphs.add(paragraph)
+                        tmpList = mutableListOf()
+                    }
+                    tmpList.add(text)
                 }
-                var paragraph = Paragraph(tmpList)
-                paragraphs.add(paragraph)
-                tmpList = mutableListOf()
+                text.shouldBeEndOfParagraph() -> {
+                    tmpList.add(text)
+                    val paragraph = Paragraph(tmpList)
+                    paragraphs.add(paragraph)
+                    tmpList = mutableListOf()
+                }
+                else -> tmpList.add(text)
             }
+        }
+        // 最後に処理が残っていたパラグラフ
+        if (tmpList.isNotEmpty()) {
+            val paragraph = Paragraph(tmpList)
+            paragraphs.add(paragraph)
         }
     }
 }
