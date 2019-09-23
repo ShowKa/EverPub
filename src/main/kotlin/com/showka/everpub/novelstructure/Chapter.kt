@@ -1,21 +1,21 @@
-package com.showka.everpub.publish
+package com.showka.everpub.novelstructure
 
 import com.showka.everpub.novelmarkup.NmLine
 
-abstract class PublishingBook(val title: String, lines: List<NmLine>) {
+abstract class Chapter(val title: String, lines: List<NmLine>) {
 
     val paragraphs = mutableListOf<Paragraph>()
 
     init {
         // 行リスト
-        var tmpList = mutableListOf<PublishingText>()
+        var tmpList = mutableListOf<TextComponent>()
         // コメント処理中ならtrue
         var inComment = false
         // 最初と最後の空行を予め除去
         val trimmed = lines.dropWhile { it.isBlank() }.dropLastWhile { it.isBlank() }
         // パラグラフ生成
         for (line in trimmed) {
-            val text = PublishingText(line)
+            val text = TextComponent(line)
             // コメントテキスト
             // コメントボーダー内の行はすべて対象外
             if (text.isCommentBorder()) {

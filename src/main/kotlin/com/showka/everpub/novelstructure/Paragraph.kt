@@ -1,6 +1,6 @@
-package com.showka.everpub.publish
+package com.showka.everpub.novelstructure
 
-class Paragraph(private val texts: MutableList<PublishingText>) {
+class Paragraph(private val texts: MutableList<TextComponent>) {
 
     // constructor
     init {

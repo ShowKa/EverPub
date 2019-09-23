@@ -1,9 +1,9 @@
-package com.showka.everpub.publish
+package com.showka.everpub.novelstructure
 
 import com.showka.everpub.novelmarkup.NmLine
 import com.showka.everpub.novelmarkup.NmLinePrefix
 
-class PublishingText(private val line: NmLine) {
+class TextComponent(private val line: NmLine) {
 
     // methods
     /** 行 = 空 ならtrue */
