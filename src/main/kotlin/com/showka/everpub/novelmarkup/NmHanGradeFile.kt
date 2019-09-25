@@ -12,8 +12,8 @@ object NmHanGradeFile {
     private val katakana = '\u30A0'..'\u30FF'
     // 漢字
     private val han = '\u4E00'..'\u9FFF'
-    // 、 。 々 「 」
-    private val symbol = arrayOf('\u3001', '\u3002', '\u3005', '\u300C', '\u300D')
+    // 、 。 「 」
+    private val symbol = arrayOf('\u3001', '\u3002', '\u300C', '\u300D')
     // 漢数字
     private val hanNumber = "一二三四五六七八九〇".toCharArray()
 
