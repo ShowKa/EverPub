@@ -8,9 +8,10 @@ class NmTokens(text: String) : ArrayList<NmToken>() {
     constructor() : this("")
 
     init {
-        val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
         val kuromojiTokens = tokenizer.tokenize(text)
         val tokens = kuromojiTokens.map { NmToken(it) }
         this.addAll(tokens)
     }
 }
+
+private val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()

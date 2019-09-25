@@ -2,7 +2,7 @@ package com.showka.everpub.novelstructure
 
 import com.showka.everpub.novelmarkup.NmLine
 
-abstract class Chapter(val title: String, lines: List<NmLine>) {
+class Chapter(val title: String, lines: List<NmLine>) {
 
     val paragraphs = mutableListOf<Paragraph>()
 
@@ -14,7 +14,7 @@ abstract class Chapter(val title: String, lines: List<NmLine>) {
         // 最初と最後の空行を予め除去
         val trimmed = lines.dropWhile { it.isBlank() }.dropLastWhile { it.isBlank() }
         // パラグラフ生成
-        for (line in trimmed) {
+        loop@ for (line in trimmed) {
             val text = TextComponent(line)
             // コメントテキスト
             // コメントボーダー内の行はすべて対象外
@@ -47,6 +47,9 @@ abstract class Chapter(val title: String, lines: List<NmLine>) {
                     tmpList.add(text)
                 }
                 text.shouldBeEndOfParagraph() -> {
+                    if (tmpList.isEmpty() && line.isBlank()) {
+                        continue@loop
+                    }
                     tmpList.add(text)
                     val paragraph = Paragraph(tmpList)
                     paragraphs.add(paragraph)
