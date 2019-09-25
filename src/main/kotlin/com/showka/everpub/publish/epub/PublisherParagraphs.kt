@@ -70,7 +70,7 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     private fun getText(text: TextComponent): String {
         val content = text.line.tokens.joinToString("") {
             return@joinToString if (it.getHanGrade().isHigher(this.grade))
-                "<ruby>${it.getSurface()}<rt>${it.getHiragana()}</rt></ruby>"
+                "<ruby>${it.getHanSection()}<rt>${it.getRuby()}</rt></ruby>${it.getNotHanSection()}"
             else
                 it.getSurface()
         }
