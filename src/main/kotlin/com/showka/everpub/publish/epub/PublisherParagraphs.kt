@@ -32,7 +32,7 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     }
 
     private fun publishDescriptive(p: Paragraph): String {
-        return p.texts.joinToString("") { this.getText(it) }
+        return "<p>" + p.texts.joinToString("") { this.getText(it) } + "</p>"
     }
 
     private fun publishQuote(p: Paragraph): String {
