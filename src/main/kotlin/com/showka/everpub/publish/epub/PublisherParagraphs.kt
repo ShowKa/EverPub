@@ -69,10 +69,19 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
 
     private fun getText(text: TextComponent): String {
         val content = text.line.tokens.joinToString("") {
-            return@joinToString if (it.getHanGrade().isHigher(this.grade))
-                "<ruby>${it.getHanSection()}<rt>${it.getRuby()}</rt></ruby>${it.getNotHanSection()}"
-            else
+            if (it.getHanGrade().isHigher(this.grade)) {
+                // "<ruby>${it.getHanSection()}<rt>${it.getRuby()}</rt></ruby>${it.getNotHanSection()}"
+                val hrList = it.getHanReading()
+                hrList.joinToString("") { map ->
+                    if (map.isHan) {
+                        "<ruby>${map.surface}<rt>${map.reading}</rt></ruby>"
+                    } else {
+                        map.surface
+                    }
+                }
+            } else {
                 it.getSurface()
+            }
         }
         return if (text.isEmphasis()) "<strong>$content</strong>" else content
     }

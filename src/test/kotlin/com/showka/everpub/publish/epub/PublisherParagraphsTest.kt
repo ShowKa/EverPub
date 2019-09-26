@@ -14,18 +14,7 @@ internal class PublisherParagraphsTest {
         val chap = Chapter(title = "月を目指す生活", lines = nmLines)
         val paragraphs = chap.paragraphs
         val pub = PublisherParagraphs(paragraphs)
-        pub.setGrade(NmHanGrade.ELEMENTARY_6)
-        println(pub.publish())
-    }
-
-    @Test
-    fun test02() {
-        val nmLines = arrayListOf<String>("あっという間に追い抜かれたわけだけどな。").map { NmLine(it) }
-        println(LocalDateTime.now())
-        val chap = Chapter(title = "月を目指す生活", lines = nmLines)
-        val paragraphs = chap.paragraphs
-        val pub = PublisherParagraphs(paragraphs)
-        pub.setGrade(NmHanGrade.ELEMENTARY_6)
+        pub.setGrade(NmHanGrade.ELEMENTARY_1)
         println(pub.publish())
     }
 }
@@ -58,7 +47,7 @@ private val novels = arrayListOf<String>(
         , "教えている自分も有能になった気分だった。"
         , ""
         , "#"
-        , "あっという間に追い抜かれたわけだけどな。"
-        , ">月見は自嘲した。"
+        , "アッという間に追い抜かれたわけだけどな。"
+        , ">月美は自嘲した。"
         , ""
 )

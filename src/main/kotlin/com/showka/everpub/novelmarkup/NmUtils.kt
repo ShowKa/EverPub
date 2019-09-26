@@ -1,5 +1,10 @@
 package com.showka.everpub.novelmarkup
 
+
+// カタカナ
+private val katakana = '\u30A0'..'\u30FF'
+// ひらがな
+private val hiragana = '\u3040'..'\u309F'
 /**
  * カタカナからひらがなへのコンバート
  */
@@ -16,5 +21,9 @@ internal fun convertKatakanaToHiragana(code: Char): Char {
     return if (katakana.contains(code)) code.minus(0x60) else code
 }
 
-// カタカナ
-private val katakana = '\u30A0'..'\u30FF'
+/**
+ * ひらがなならtrue
+ */
+internal fun isHiragana(code: Char): Boolean {
+    return hiragana.contains(code)
+}

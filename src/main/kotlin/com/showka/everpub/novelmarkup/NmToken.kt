@@ -19,35 +19,9 @@ class NmToken(private val token: Token) {
     /** ひらがな取得 */
     fun getHiragana(): String = convertKatakanaToHiragana(this.getKatakana())
 
-    /** ルビ取得
-     *  「召使い」の場合、「めしつか」まで。
-     */
-    fun getRuby(): String {
-        val hiragana = this.getHiragana()
-        val surface = this.getSurface()
-        var tmp = hiragana
-        for (c in surface.reversed()) {
-            if (c == tmp.last()) {
-                tmp = tmp.dropLast(1)
-            } else {
-                break
-            }
-        }
-        return tmp
-    }
-
-    /**
-     * 冒頭漢字部分のみ抽出 (召使い→召使)
-     */
-    fun getHanSection(): String {
-        return this.token.surface.dropLastWhile { !NmHanGradeFile.validateHan(it) }
-    }
-
-    /**
-     * 平仮名部分のみ抽出 (召使い→い)
-     */
-    fun getNotHanSection(): String {
-        return this.token.surface.dropWhile { NmHanGradeFile.validateHan(it) }
+    /** 漢字読みマップ取得 */
+    fun getHanReading(): NmHanReadingMapList {
+        return NmHanReadingMapList(this)
     }
 
     /** 位置取得 */

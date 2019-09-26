@@ -37,32 +37,4 @@ internal class NmTokenTest {
         val result2 = NmToken(token[1])
         assertEquals(1, result2.getPosition())
     }
-
-    @Test
-    fun getRuby() {
-        val text = "僕は召使いだ。"
-        val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
-        val token = tokenizer.tokenize(text)
-        val result = NmToken(token[2])
-        assertEquals("めしつか", result.getRuby())
-    }
-
-    @Test
-    fun getHanSection() {
-        val text = "僕は召使いだ。"
-        val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
-        val token = tokenizer.tokenize(text)
-        val result = NmToken(token[2])
-        assertEquals("召使", result.getHanSection())
-    }
-
-    @Test
-    fun getHiraganaSection() {
-        val text = "僕は召使いだ。"
-        val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
-        val token = tokenizer.tokenize(text)
-        val result = NmToken(token[2])
-        assertEquals("い", result.getNotHanSection())
-    }
-
 }

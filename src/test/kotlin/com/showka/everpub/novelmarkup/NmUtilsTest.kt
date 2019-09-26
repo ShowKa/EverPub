@@ -9,4 +9,10 @@ internal class NmUtilsTest {
         val hiragana = convertKatakanaToHiragana("アイウエオワヲンガギグゲゴパピプペポ平がな")
         assertEquals("あいうえおわをんがぎぐげごぱぴぷぺぽ平がな", hiragana)
     }
+
+    @Test
+    fun test_isHiragana_01() {
+        val result = isHiragana("あ".toCharArray()[0])
+        assertEquals(true, result)
+    }
 }
