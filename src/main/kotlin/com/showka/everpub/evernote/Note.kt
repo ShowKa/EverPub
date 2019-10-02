@@ -3,23 +3,29 @@ package com.showka.everpub.evernote
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
+import java.io.InputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * EvernoteのNote
  */
 // Constructor parameter から private val を省略すると init 以外からアクセスできない。
-class Note(file: File) {
+class Note(inputStream: InputStream) {
 
+    // member
     private val document: Document
+
+    // constructor
+    constructor(file: File) : this(file.inputStream())
 
     init {
         val factory = DocumentBuilderFactory.newDefaultInstance()
         val builder = factory.newDocumentBuilder()
         // evernoteの DOCTYPE 定義の文字列を含んでいると、parse が尋常じゃないほど遅い
-        document = builder.parse(file)
+        document = builder.parse(inputStream)
     }
 
+    // method
     fun getSentences(): Sentences {
         val divs = this.getDivisions()
         val list = divs.map { div -> Sentence(div) }.toList()
