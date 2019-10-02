@@ -42,6 +42,8 @@ dependencies {
     implementation("com.evernote:evernote-api:1.25.1")
     // Kuromoji
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
+    // ScribeJava
+    implementation("org.scribe:scribe:1.3.3")
 }
 
 tasks.withType<Test> {
