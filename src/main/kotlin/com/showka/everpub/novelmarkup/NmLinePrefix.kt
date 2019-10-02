@@ -12,6 +12,8 @@ enum class NmLinePrefix(private val mark: String) {
     EMPHASIS("!"),
     /** ◇ブロック分割=段落の集まり */
     BLOCK_SEPARATOR("◇"),
+    /** ◇ブロック分割=段落の集まり */
+    COMMENT_BORDER("ーー"),
     /** なし */
     NOTHING("");
 
@@ -33,6 +35,7 @@ enum class NmLinePrefix(private val mark: String) {
                 text.startsWith(DESCRIPTIVE_BETWEEN_QUOTES.mark) -> DESCRIPTIVE_BETWEEN_QUOTES
                 text.startsWith(EMPHASIS.mark) -> EMPHASIS
                 text.startsWith(BLOCK_SEPARATOR.mark) -> BLOCK_SEPARATOR
+                text.startsWith(COMMENT_BORDER.mark) -> COMMENT_BORDER
                 else -> NOTHING
             }
         }

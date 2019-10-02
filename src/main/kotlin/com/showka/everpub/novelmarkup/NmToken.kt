@@ -19,6 +19,11 @@ class NmToken(private val token: Token) {
     /** ひらがな取得 */
     fun getHiragana(): String = convertKatakanaToHiragana(this.getKatakana())
 
+    /** 漢字読みマップ取得 */
+    fun getHanReading(): NmHanReadingMapList {
+        return NmHanReadingMapList(this)
+    }
+
     /** 位置取得 */
     fun getPosition(): Int = this.token.position
 

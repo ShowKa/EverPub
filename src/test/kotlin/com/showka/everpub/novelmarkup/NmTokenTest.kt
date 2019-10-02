@@ -9,7 +9,7 @@ internal class NmTokenTest {
 
     @Test
     fun getHiragana() {
-        var text = "僕は言った。"
+        val text = "僕は言った。"
         val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
         val token = tokenizer.tokenize(text)
         val result = NmToken(token[0])
@@ -18,7 +18,7 @@ internal class NmTokenTest {
 
     @Test
     fun getHanGrade() {
-        var text = "僕は言った。"
+        val text = "僕は言った。"
         val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
         val token = tokenizer.tokenize(text)
         val result = NmToken(token[0])
@@ -29,7 +29,7 @@ internal class NmTokenTest {
 
     @Test
     fun getPosition() {
-        var text = "僕は言った。"
+        val text = "僕は言った。"
         val tokenizer = Tokenizer.Builder().mode(TokenizerBase.Mode.NORMAL).build()
         val token = tokenizer.tokenize(text)
         val result1 = NmToken(token[0])
