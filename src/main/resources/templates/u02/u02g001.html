@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script src="/u02/u02g001.js"></script>
+</head>
+
+<body>
+<form action="/u02/g001">
+    <div th:text="${notebook}"/>
+    <div>tags:</div>
+    <input name="tag" th:value="${tag}" type="text"/>
+    <div>note name:</div>
+    <input name="title" th:value="${title}" type="text"/>
+    <input autofocus type="submit" value="ReSubmit"/>
+</form>
+</body>
+</html>

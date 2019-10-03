@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script src="/u01/u01g002.js"></script>
+</head>
+
+<body>
+<form action="/u02/g001">
+    <div th:text="${defaultNotebook}"/>
+    <div>tags:</div>
+    <select name="tag">
+        <option th:each="tag : ${tagMap}" th:selected="${tag.get('name').equals('On the moon')}"
+                th:text="${tag.get('name')}"
+                th:value="${tag.get('name')}"/>
+    </select>
+    <div>note name:</div>
+    <input name="title" type="text" value="5.1.2"/>
+    <input autofocus type="submit" value="EPUB"/>
+</form>
+</body>
+</html>
