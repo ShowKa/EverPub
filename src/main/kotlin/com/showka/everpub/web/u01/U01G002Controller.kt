@@ -22,7 +22,6 @@ class U01G002Controller {
     @RequestMapping("/g002")
     open fun menu(@ModelAttribute form: U01G002Form, model: ModelAndView): ModelAndView {
         // User Authorization
-        model.viewName = "/u01/u01g002"
         model.addObject("token", form.oauth_token)
         model.addObject("lnb", form.sandbox_lnb)
         model.addObject("verifier", form.oauth_verifier)
@@ -36,10 +35,21 @@ class U01G002Controller {
         authBean.evernoteAuth = evernoteAuth
         model.addObject("accessToken", evernoteAuth.token)
         model.addObject("noteStoreUrl", evernoteAuth.noteStoreUrl)
-        // get note
+        // get notebook
         val noteStore = ClientFactory(evernoteAuth).createNoteStoreClient()
         val noteBook = noteStore.defaultNotebook
         model.addObject("defaultNotebook", noteBook.name)
+        // get tags
+        val tags = noteStore.listTags()
+        val tagMap = tags.map { tag ->
+            val map = mutableMapOf<String, String>()
+            map["id"] = tag.guid
+            map["name"] = tag.name
+            map
+        }
+        model.addObject("tagMap", tagMap)
+        // return view
+        model.viewName = "/u01/u01g002"
         return model
     }
 }
