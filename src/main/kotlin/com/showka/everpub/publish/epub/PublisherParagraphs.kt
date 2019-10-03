@@ -19,12 +19,15 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     }
 
     private fun publishForEach(p: Paragraph): String {
-        return when {
+        val ret = when {
             p.isBlockSeparator() -> this.publishSeparator()
             p.isDescriptive() -> this.publishDescriptive(p)
             p.isQuote() -> this.publishQuote(p)
             else -> ""
         }
+        return ret
+                .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
+                .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
     }
 
     private fun publishSeparator(): String {
@@ -32,12 +35,12 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     }
 
     private fun publishDescriptive(p: Paragraph): String {
-        return "<p>" + p.texts.joinToString("") { this.getText(it) } + "</p>"
+        return "<p class=\"descriptive\">" + p.texts.joinToString("") { this.getText(it) } + "</p>"
     }
 
     private fun publishQuote(p: Paragraph): String {
         var inQuote = true
-        val start = "<p>「"
+        val start = "<p class=\"quote\">「"
         val content = p.texts.joinToString("") {
             return@joinToString when {
                 it.isSpeakerDefinition() -> ""
@@ -56,15 +59,16 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
                     if (!inQuote) {
                         ret += "「"
                     }
-                    // TODO 必要なら括弧内の括弧「」を置換
                     ret += this.getText(it)
+                            .replace("「".toRegex(), "『").replace("」".toRegex(), "』")
                     inQuote = true
                     ret
                 }
             }
         }
         val end = if (inQuote) "」</p>" else "</p>"
-        return start + content + end
+
+        return (start + content + end)
     }
 
     private fun getText(text: TextComponent): String {
