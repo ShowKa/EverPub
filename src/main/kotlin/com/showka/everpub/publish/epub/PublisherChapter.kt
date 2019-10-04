@@ -21,10 +21,11 @@ class PublisherChapter constructor(private val chapter: Chapter) {
             |</head>
         """.trimMargin()
         val start = "<body><section class=\"chapter\" epub:type=\"chapter\">"
+        val chapterTitle = "<p class=\"chapter_title\">${this.chapter.title}</p>"
         val pubParagraphs = PublisherParagraphs(this.chapter.paragraphs)
         pubParagraphs.setGrade(this.grade)
         val contents = pubParagraphs.publish()
         val end = "</section></body>"
-        return header + start + contents + end
+        return header + start + chapterTitle + contents + end
     }
 }
