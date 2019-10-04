@@ -36,10 +36,12 @@ open class U02G001Controller {
             val chapter = Chapter(it.title, lines)
             val publisher = PublisherEpub(chapter)
             publisher.setGrade(NmHanGrade.ELEMENTARY_6)
+            publisherService.publish(publisher, "${form.path}/${it.title.replace("\\s+".toRegex(), "")}.xhtml")
         }
         // set form
         model.addObject("tag", form.tag)
         model.addObject("title", form.title)
+        model.addObject("path", form.path)
         model.addObject("notebook", "default note book....")
         // set view
         model.viewName = "/u02/u02g001"
