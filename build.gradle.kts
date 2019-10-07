@@ -44,6 +44,8 @@ dependencies {
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     // ScribeJava
     implementation("org.scribe:scribe:1.3.3")
+    // freemarker
+    implementation("org.freemarker:freemarker:2.3.23")
 }
 
 tasks.withType<Test> {

@@ -2,6 +2,7 @@ package com.showka.everpub.evernote
 
 import org.w3c.dom.Document
 import org.w3c.dom.Element
+import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.InputStream
 import javax.xml.parsers.DocumentBuilderFactory
@@ -18,10 +19,18 @@ class Note(inputStream: InputStream) {
     // constructor
     constructor(file: File) : this(file.inputStream())
 
+    constructor(note: com.evernote.edam.type.Note) : this(ByteArrayInputStream(note.content.toByteArray(Charsets.UTF_8)))
+
     init {
         val factory = DocumentBuilderFactory.newDefaultInstance()
+        // disable validation -> parse quickly
+        factory.isValidating = false
+        factory.setFeature("http://xml.org/sax/features/namespaces", false)
+        factory.setFeature("http://xml.org/sax/features/validation", false)
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false)
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+        // parse
         val builder = factory.newDocumentBuilder()
-        // evernoteの DOCTYPE 定義の文字列を含んでいると、parse が尋常じゃないほど遅い
         document = builder.parse(inputStream)
     }
 
