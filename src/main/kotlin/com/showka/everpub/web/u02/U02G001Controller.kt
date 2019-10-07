@@ -33,7 +33,7 @@ open class U02G001Controller {
     open fun menu(@ModelAttribute form: U02G001Form, model: ModelAndView): ModelAndView {
         // search
         val notes = noteSearch.search(tag = form.tag, intitle = form.title)
-        val chapterDataList = mutableListOf<Map<String, Any>>()
+        val chapters = mutableListOf<Map<String, Any>>()
         notes.forEach {
             println(it.title)
             val note: Note = Note(it)
@@ -48,25 +48,33 @@ open class U02G001Controller {
             publisherService.publish(publisher, "${form.path}/OEBPS/text/$fileName")
 
             // chapter data
-            val data = mutableMapOf<String, Any>()
-            data["fileName"] = fileName
-            data["id"] = title
-            chapterDataList.add(data)
+            val chap = mutableMapOf<String, Any>()
+            chap["fileName"] = fileName
+            chap["title"] = title
+            chap["id"] = title
+            chapters.add(chap)
         }
-        /*
-         * content.opf
-         */
+        // data for templates
+        val dataForTemplates = mutableMapOf<String, Any>()
+        dataForTemplates["chapters"] = chapters
+        // free marker config
         val freeMarkerConfig = Configuration(Configuration.VERSION_2_3_23)
         val file = ClassPathResource("/epub").file
         freeMarkerConfig.setDirectoryForTemplateLoading(file)
-        val template = freeMarkerConfig.getTemplate("/content.opf.ftl")
-        // data
-        val contentMap = mutableMapOf<String, Any>()
-        contentMap["chapters"] = chapterDataList
-        // output
+        /*
+         * content.opf
+         */
+        val contentTemplate = freeMarkerConfig.getTemplate("/content.opf.ftl")
         val contentFile = File("${form.path}/OEBPS/content.opf")
-        val writer = PrintWriter(BufferedWriter(FileWriter(contentFile)))
-        template.process(contentMap, writer)
+        val contentWriter = PrintWriter(BufferedWriter(FileWriter(contentFile)))
+        contentTemplate.process(dataForTemplates, contentWriter)
+        /*
+         * toc.ncx
+         */
+        val tocTemplate = freeMarkerConfig.getTemplate("/toc.ncx.ftl")
+        val tocFile = File("${form.path}/OEBPS/toc.ncx")
+        val tocWriter = PrintWriter(BufferedWriter(FileWriter(tocFile)))
+        tocTemplate.process(dataForTemplates, tocWriter)
         // set form
         model.addObject("tag", form.tag)
         model.addObject("title", form.title)
