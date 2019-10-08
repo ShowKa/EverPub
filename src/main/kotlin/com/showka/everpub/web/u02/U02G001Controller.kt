@@ -5,6 +5,7 @@ import com.showka.everpub.novelmarkup.NmHanGrade
 import com.showka.everpub.novelmarkup.NmLine
 import com.showka.everpub.novelstructure.Chapter
 import com.showka.everpub.publish.PublishService
+import com.showka.everpub.publish.docx.PublisherDocx
 import com.showka.everpub.publish.epub.PublisherEpub
 import com.showka.everpub.service.NoteSearch
 import freemarker.template.Configuration
@@ -29,8 +30,8 @@ open class U02G001Controller {
     @Autowired
     lateinit var publisherService: PublishService
 
-    @RequestMapping("/g001")
-    open fun menu(@ModelAttribute form: U02G001Form, model: ModelAndView): ModelAndView {
+    @RequestMapping("/g001/epub")
+    open fun epub(@ModelAttribute form: U02G001Form, model: ModelAndView): ModelAndView {
         // search
         val notes = noteSearch.search(tag = form.tag, intitle = form.title)
         val chapters = mutableListOf<Map<String, Any>>()
@@ -75,6 +76,32 @@ open class U02G001Controller {
         val tocFile = File("${form.path}/OEBPS/toc.ncx")
         val tocWriter = PrintWriter(BufferedWriter(FileWriter(tocFile)))
         tocTemplate.process(dataForTemplates, tocWriter)
+        // set form
+        model.addObject("tag", form.tag)
+        model.addObject("title", form.title)
+        model.addObject("path", form.path)
+        model.addObject("notebook", "default note book....")
+        // set view
+        model.viewName = "/u02/u02g001"
+        return model
+    }
+
+    @RequestMapping("/g001/docx")
+    open fun docx(@ModelAttribute form: U02G001Form, model: ModelAndView): ModelAndView {
+        // search
+        val notes = noteSearch.search(tag = form.tag, intitle = form.title)
+        notes.forEach {
+            println(it.title)
+            val note: Note = Note(it)
+            val lines = note.getSentences().map { sentence ->
+                NmLine(sentence.getPlainText())
+            }
+            val chapter = Chapter(it.title, lines)
+            val publisher = PublisherDocx(chapter)
+            val title = it.title.replace("\\s+".toRegex(), "")
+            val fileName = "$title.docx"
+            publisherService.publish(publisher, "${form.path}/$fileName")
+        }
         // set form
         model.addObject("tag", form.tag)
         model.addObject("title", form.title)

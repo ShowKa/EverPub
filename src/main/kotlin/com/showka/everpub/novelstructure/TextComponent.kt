@@ -33,4 +33,6 @@ class TextComponent(val line: NmLine) {
     /** この行だけでパラグラフを構成すべきならtrue */
     fun shouldBeOneInParagraph(): Boolean = (this.shouldBeStartOfParagraph() && this.shouldBeEndOfParagraph())
 
+    /** 連結文字 */
+    fun getSimpleText():String = this.line.tokens.joinToString("") { it.getSurface() }
 }

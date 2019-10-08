@@ -46,6 +46,9 @@ dependencies {
     implementation("org.scribe:scribe:1.3.3")
     // freemarker
     implementation("org.freemarker:freemarker:2.3.23")
+    // poi
+    implementation("org.apache.poi:poi:4.1.0")
+    implementation("org.apache.poi:poi-ooxml:4.1.0")
 }
 
 tasks.withType<Test> {
