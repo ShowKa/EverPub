@@ -1,6 +1,8 @@
 package com.showka.everpub.publish.docx
 
+import com.showka.everpub.novelmarkup.NmHanGrade
 import com.showka.everpub.novelstructure.Paragraph
+import com.showka.everpub.novelstructure.TextComponent
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRuby
@@ -52,18 +54,63 @@ class PublisherParagraph(private val paragraphs: List<Paragraph>, private val do
     private fun publishDescriptive(para: Paragraph) {
         val p = this.document.createParagraph()
         p.style = styleDescriptive
-        this.publishText(para, p)
+        para.texts.forEach { textComponent ->
+            this.publishText(textComponent, p)
+        }
     }
 
-    private fun publishText(paragraph: Paragraph, p: XWPFParagraph) {
-        for (textComponent in paragraph.texts) {
-            val text = textComponent.getSimpleText()
-            val r = p.createRun()
-            r.setText(text)
-            when {
-                textComponent.isEmphasis() -> {
-                    r.setStyle(styleEmphasis)
+    private fun publishText(textComponent: TextComponent, p: XWPFParagraph) {
+        // style
+        val style = when {
+            textComponent.isEmphasis() -> styleEmphasis
+            else -> "標準"
+        }
+        // publish
+        for (i in 0..textComponent.line.tokens.lastIndex) {
+            val token = textComponent.line.tokens[i]
+            if (token.getHanGrade().isHigher(NmHanGrade.ELEMENTARY_6)) {
+                val hrList = token.getHanReading()
+                hrList.forEach { hr ->
+                    if (hr.isHan) {
+                        val r = p.createRun()
+                        val ctr = r.ctr
+                        val ruby = ctr.addNewRuby()
+                        // property
+                        val property = ruby.addNewRubyPr()
+                        val align = property.addNewRubyAlign()
+                        property.rubyAlign = alignProperty
+                        // read
+                        val rt = ruby.addNewRt()
+                        val rtR = rt.addNewR()
+                        val rtRT = rtR.addNewT()
+                        rtRT.stringValue = hr.reading
+                        // base
+                        val base = ruby.addNewRubyBase()
+                        val baseR = base.addNewR()
+                        val baseRT = baseR.addNewT()
+                        baseRT.stringValue = hr.surface
+                        r.setStyle(style)
+                    } else {
+                        val r = p.createRun()
+                        val text = hr.surface
+                        r.setText(hr.surface)
+                        r.setStyle(style)
+                    }
                 }
+            } else {
+                val r = p.createRun()
+                val surface = token.getSurface()
+                val text = surface
+                        .replace("！".toRegex(), "！　")
+                        .replace("？".toRegex(), "？　")
+                        .replace("「".toRegex(), "『")
+                        .replace("」".toRegex(), "』")
+                r.setText(text)
+                // 三点リーダーが強制的に英字フォントになるので、無理やり和フォントにする。
+                if (text == "…") {
+                    r.fontFamily = "メイリオ"
+                }
+                r.setStyle(style)
             }
         }
     }
@@ -75,10 +122,42 @@ class PublisherParagraph(private val paragraphs: List<Paragraph>, private val do
         val sr = p.createRun()
         sr.setText("「")
         // content
-        this.publishText(para, p)
-        // end
-        val er = p.createRun()
-        er.setText("」")
+        var inQuote = true
+        for (textComponent in para.texts) {
+            if (textComponent.isSpeakerDefinition()) {
+                continue
+            }
+            val descriptive = textComponent.isDescriptiveBetweenQuotes()
+            if (inQuote && descriptive) {
+                this.removeLastSpace(p)
+                val er = p.createRun()
+                er.setText("」")
+            } else if (!inQuote && !descriptive) {
+                val sr = p.createRun()
+                sr.setText("「")
+            }
+            inQuote = !descriptive
+            this.publishText(textComponent, p)
+        }
+        if (inQuote) {
+            // remove last space
+            this.removeLastSpace(p)
+            // end
+            val er = p.createRun()
+            er.setText("」")
+        }
+    }
+
+    private fun removeLastSpace(p: XWPFParagraph) {
+        val last = p.runs.last()
+        val lastPosition = last.textPosition
+        val lastText = last.getText(lastPosition)
+        if (lastText.contains("　$".toRegex())) {
+            val replacedText = lastText.replace("　$".toRegex(), "")
+            p.removeRun(p.runs.lastIndex)
+            val newer = p.createRun()
+            newer.setText(replacedText)
+        }
     }
 
     private fun publishBlockSeparator() {
@@ -87,55 +166,4 @@ class PublisherParagraph(private val paragraphs: List<Paragraph>, private val do
         val r = p.createRun()
         r.setText("■")
     }
-}
-
-fun main(args: Array<String>) {
-    // document
-    val templatePath = "/docx/text.docx"
-    val template = ClassPathResource(templatePath).file
-    val document = XWPFDocument(template.inputStream())
-    // get ruby align property from template document
-    val ite = document.paragraphsIterator
-    var alignProperty: CTRubyAlign? = null
-    while (ite.hasNext()) {
-        val p = ite.next()
-        val runs = p.runs
-        runs.forEach { r ->
-            val ctr = r.ctr
-            val c = ctr.newCursor()
-            c.selectPath("./*")
-            while (c.toNextSelection()) {
-                val o = c.getObject()
-                if (o is CTRuby) {
-                    val rp = o.rubyPr
-                    alignProperty = rp.rubyAlign
-                    println(alignProperty)
-                    break
-                }
-            }
-        }
-    }
-    // ruby
-    val p = document.createParagraph()
-    val r = p.createRun()
-    val ctr = r.ctr
-    val ruby = ctr.addNewRuby()
-    // property
-    val property = ruby.addNewRubyPr()
-    val align = property.addNewRubyAlign()
-    property.rubyAlign = alignProperty
-    // read
-    val rt = ruby.addNewRt()
-    val rtR = rt.addNewR()
-    val rtRT = rtR.addNewT()
-    rtRT.stringValue = "さいだいじつきみ"
-    // base
-    val base = ruby.addNewRubyBase()
-    val baseR = base.addNewR()
-    val baseRT = baseR.addNewT()
-    baseRT.stringValue = "西大寺月美"
-    // output
-    val dir = System.getenv("path")
-    val target = File("$dir/ruby.docx")
-    document.write(FileOutputStream(target))
 }
