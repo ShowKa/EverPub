@@ -16,7 +16,10 @@ class Paragraph(val texts: MutableList<TextComponent>) {
     /** ブロック分割パラグラフならtrue */
     fun isBlockSeparator(): Boolean = this.texts[0].isBlockSeparator()
 
+    /** 手紙句境界ならtrue */
+    fun isLetterBorder(): Boolean = this.texts[0].isLetterBorder()
+
     /** 地の文パラグラフならtrue */
-    fun isDescriptive(): Boolean = (!this.isQuote() && !this.isBlockSeparator())
+    fun isDescriptive(): Boolean = (!this.isLetterBorder() && !this.isQuote() && !this.isBlockSeparator())
 
 }

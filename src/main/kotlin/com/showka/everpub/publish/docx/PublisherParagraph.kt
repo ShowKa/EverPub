@@ -7,14 +7,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRuby
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRubyAlign
-import org.springframework.core.io.ClassPathResource
-import java.io.File
-import java.io.FileOutputStream
 
 private const val styleDescriptive = "descriptive"
 private const val styleEmphasis = "emphasis"
 private const val styleSeparator = "Separator"
 private const val styleQuote = "quote"
+private const val styleLetterBorder = "letterBorder"
 
 class PublisherParagraph(private val paragraphs: List<Paragraph>, private val document: XWPFDocument) {
 
@@ -47,8 +45,15 @@ class PublisherParagraph(private val paragraphs: List<Paragraph>, private val do
                 paragraph.isDescriptive() -> this.publishDescriptive(paragraph)
                 paragraph.isQuote() -> this.publishQuote(paragraph)
                 paragraph.isBlockSeparator() -> this.publishBlockSeparator()
+                paragraph.isLetterBorder() -> this.publishLetterBorder()
             }
         }
+    }
+
+    private fun publishLetterBorder() {
+        val p = this.document.createParagraph()
+        p.style = styleLetterBorder
+        val pNext = this.document.createParagraph()
     }
 
     private fun publishDescriptive(para: Paragraph) {
