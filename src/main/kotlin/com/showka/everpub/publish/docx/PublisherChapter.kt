@@ -1,6 +1,5 @@
 package com.showka.everpub.publish.docx
 
-import com.showka.everpub.novelmarkup.NmHanGrade
 import com.showka.everpub.novelstructure.Chapter
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 
@@ -14,9 +13,7 @@ class PublisherChapter(private val chapter: Chapter, private val document: XWPFD
         val rTitle = pTitle.createRun()
         rTitle.setText(title)
         // paragraphs
-        chapter.paragraphs.forEach {
-            val pubParagraph = PublisherParagraph(it, document)
-            pubParagraph.publish()
-        }
+        val pubParagraph = PublisherParagraph(this.chapter.paragraphs, document)
+        pubParagraph.publish()
     }
 }
