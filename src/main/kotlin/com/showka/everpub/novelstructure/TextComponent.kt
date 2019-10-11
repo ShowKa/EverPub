@@ -21,16 +21,18 @@ class TextComponent(val line: NmLine) {
     /** 行 = コメントボーダー ならtrue */
     fun isCommentBorder(): Boolean = (this.line.prefix == NmLinePrefix.COMMENT_BORDER)
 
+    /** 行 = 手紙境界 ならtrue */
+    fun isLetterBorder(): Boolean = (this.line.prefix == NmLinePrefix.LETTER_BORDER)
+
     /** 行 = 強調 ならtrue */
     fun isEmphasis(): Boolean = (this.line.prefix == NmLinePrefix.EMPHASIS)
 
     /** この行でパラグラフを開始すべきならtrue */
-    fun shouldBeStartOfParagraph(): Boolean = (this.isBlockSeparator() || this.isSpeakerDefinition())
+    fun shouldBeStartOfParagraph(): Boolean = (this.isLetterBorder() || this.isBlockSeparator() || this.isSpeakerDefinition())
 
     /** この行でパラグラフを終了すべきならtrue */
-    fun shouldBeEndOfParagraph(): Boolean = (this.isBlockSeparator() || this.isBlank())
+    fun shouldBeEndOfParagraph(): Boolean = (this.isLetterBorder() || this.isBlockSeparator() || this.isBlank())
 
     /** この行だけでパラグラフを構成すべきならtrue */
     fun shouldBeOneInParagraph(): Boolean = (this.shouldBeStartOfParagraph() && this.shouldBeEndOfParagraph())
-
 }

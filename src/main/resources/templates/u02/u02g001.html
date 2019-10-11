@@ -6,7 +6,19 @@
 </head>
 
 <body>
-<form action="/u02/g001">
+<form action="/u02/g001/epub">
+    <div>epub</div>
+    <div th:text="${notebook}"/>
+    <div>tags:</div>
+    <input name="tag" th:value="${tag}" type="text"/>
+    <div>note name:</div>
+    <input name="title" th:value="${title}" type="text"/>
+    <div>save:</div>
+    <input name="path" th:value="${path}" type="text"/>
+    <input autofocus type="submit" value="ReSubmit"/>
+</form>
+<form action="/u02/g001/docx">
+    <div>docx</div>
     <div th:text="${notebook}"/>
     <div>tags:</div>
     <input name="tag" th:value="${tag}" type="text"/>

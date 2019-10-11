@@ -6,7 +6,8 @@
 </head>
 
 <body>
-<form action="/u02/g001">
+<form action="/u02/g001/epub">
+    <div>epub</div>
     <div th:text="${defaultNotebook}"/>
     <div>tags:</div>
     <select name="tag">
@@ -16,6 +17,22 @@
     </select>
     <div>note name:</div>
     <input name="title" type="text" value=""/>
+    <div>save:</div>
+    <input name="path" type="text" autofocus/>
+    <input type="submit" value="EPUB"/>
+</form>
+
+<form action="/u02/g001/docx">
+    <div>docx</div>
+    <div th:text="${defaultNotebook}"/>
+    <div>tags:</div>
+    <select name="tag">
+        <option th:each="tag : ${tagMap}" th:selected="${tag.get('name').equals('Manuscript')}"
+                th:text="${tag.get('name')}"
+                th:value="${tag.get('name')}"/>
+    </select>
+    <div>note name:</div>
+    <input name="title" type="text" value="5.1.2"/>
     <div>save:</div>
     <input name="path" type="text" autofocus/>
     <input type="submit" value="EPUB"/>
