@@ -12,14 +12,19 @@ fun main() {
     // src dest
     val inputPath = "/Users/kanemotoshouta/Desktop/月面ラジオ/OEBPS/text/empty.xhtml"
     val outputPath = "/Users/kanemotoshouta/Desktop/a.pdf"
+    // template
     val xsltPath = "/Users/kanemotoshouta/Desktop/template.xsl"
-    //
     val xsltFile = File(xsltPath)
     val xmlSource = StreamSource(File(inputPath))
-    val fopFactory = FopFactory.newInstance()
-    val foUserAgent = fopFactory.newFOUserAgent()
-    val out = File(outputPath).outputStream()
+    // user config
+    val configPath = "/Users/kanemotoshouta/Desktop/config.xml"
+    val userConfig = File(configPath)
     // fop
+    val fopFactory = FopFactory.newInstance()
+    fopFactory.setUserConfig(userConfig)
+    val foUserAgent = fopFactory.newFOUserAgent()
+    // fop
+    val out = File(outputPath).outputStream()
     val fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out)
     val factory = TransformerFactory.newInstance()
     val transformer = factory.newTransformer(StreamSource(xsltFile))
