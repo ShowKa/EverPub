@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+svg{
+	margin:0;
+	padding:0;
+}
+body, html{
+	margin:0;
+	font-size:0;
+	padding:0;
+	text-align: center;
+}
+
+.boekstaaf { text-decoration: underline; border-bottom-color: #373733; background: #303032; font-size: 12px; border-top-color: #393830; padding: 2px; color: #303030; vertical-align: top; display: none; margin: 1px; border: 1px solid;  } 

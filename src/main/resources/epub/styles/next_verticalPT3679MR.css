@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+body {
+	writing-mode: vertical-rl;
+	-webkit-writing-mode: vertical-rl;
+	-moz-writing-mode: vertical-rl;
+	-o-writing-mode: vertical-rl;
+	-ms-writing-mode: vertical-rl;
+	-epub-writing-mode: vertical-rl;
+	font-size: 100%;
+	font-family: serif;
+}
+.tcy {
+	text-combine: horizontal;
+	-webkit-text-combine: horizontal;
+	-moz-text-combine: horizontal;
+	-o-text-combine: horizontal;
+	-ms-text-combine: horizontal;
+	-epub-text-combine: horizontal;
+}
+h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+p {
+	font-size: 1em;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	line-height: 1.9;
+	text-align: justify;
+	text-justify: inter-ideograph;
+	text-indent: 0em;
+}
+section.toc p{
+	line-height: 1.75;
+	padding-top: 1em;
+}
+p.toc_chapter {
+	margin-right: 1em;
+}
+span.toc_table {
+	font-weight: bold;
+	font-family: sans-serif;
+}
+span.toc_en {
+	font-size: 0.75em;
+}
+strong {
+	font-weight: bold;
+}
+.right {
+	text-align: right;
+}
+.big {
+	font-size: 1.1em;
+}
+p.quote {
+	margin: 1em 0em 1em 0em;
+}
+p.quote2 {
+	margin: 2em 0em 1em 0em;
+}
+span.loudly {
+	font-weight: bold;
+	font-size: 1.15em;
+}
+span.maru {
+	font-family: sans-serif;
+}
+span.letter_let {
+	font-size: 0.95em;
+	font-family: sans-serif;
+}
+span.pop {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.article {
+	font-family: sans-serif;
+}
+hr.start {
+	margin-left: 1.1em;
+}
+hr.end {
+	margin-right: 1.1em;
+}
+
+.boekstaaf { margin: 12px; text-decoration: none; background: #303032; color: #303030; border-bottom-color: #373733; padding: 24px; vertical-align: middle; font-size: 12px; border: 1px solid; display: none; border-top-color: #393830;  } 

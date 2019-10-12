@@ -1,0 +1,213 @@
+@charset "utf-8";
+
+body {
+	writing-mode: vertical-rl;
+	-webkit-writing-mode: vertical-rl;
+	-moz-writing-mode: vertical-rl;
+	-o-writing-mode: vertical-rl;
+	-ms-writing-mode: vertical-rl;
+	-epub-writing-mode: vertical-rl;
+	font-size: 100%;
+	font-family: serif;
+}
+.tcy, .tcy_k {
+	text-combine: horizontal;
+	-webkit-text-combine: horizontal;
+	-moz-text-combine: horizontal;
+	-o-text-combine: horizontal;
+	-ms-text-combine: horizontal;
+	-epub-text-combine: horizontal;
+}
+h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+p {
+	font-size: 1em;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	line-height: 1.9;
+	text-align: justify;
+	text-justify: inter-ideograph;
+	text-indent: 0em;
+}
+p.descriptive {
+	text-indent: 1em;
+}
+p.chapter_title {
+	margin: 5em 1em 0 1em;
+	font-size: 130%;
+}
+section.toc p{
+	line-height: 1.75;
+	padding-top: 1em;
+}
+p.toc_chapter {
+	margin-right: 1em;
+}
+span.toc_table {
+	font-weight: bold;
+	font-family: sans-serif;
+}
+span.toc_en {
+	font-size: 0.75em;
+}
+strong {
+	font-weight: bold;
+}
+.g {
+	font-family: sans-serif;
+}
+.m {
+	font-family: serif;
+}
+.right {
+	text-align: right;
+}
+.small {
+	font-size: 0.82em;
+}
+.big {
+	font-size: 1.1em;
+}
+span.ruby_adjust {
+	padding-right: 0.55em;
+	padding-top: inherit;
+	padding-bottom: inherit;
+	padding-left: inherit;
+}
+p.quote {
+	margin: 0em 0em 1em 0em;
+}
+p.quote2 {
+	margin: 2em 0em 1em 0em;
+}
+p.quote3 {
+	margin: 3em 0em 1em 0em;
+}
+p.ind {
+	text-indent: -1em;
+}
+p.news {
+	margin: 1em 0em 1em 0em;
+}
+p.question {
+	margin: 3em 0em 0em 0em;
+	text-indent: -2em;
+}
+p.inscription {
+	margin: 4em 0em 2em 0em;
+}
+p.air {
+	margin: 2em 0em 2em 0em;
+}
+div.board_3d {
+	border: ridge 3px #000000;
+	margin: 2em 0.2em 2em 0.2em;
+	padding: 0.2em;
+}
+span.board_3d {
+	border: ridge 3px #000000;
+	padding: 0.55em;
+	line-height: 2.6;
+}
+
+
+div.board_3d1a {
+	border: ridge 3px #000000;
+	margin: 2em 0.2em 2em 0.2em;
+	padding: 0.2em;
+}
+span.board_3d1a {
+	border: ridge 3px #000000;
+		padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.2em;
+	padding-right: 0.9em;
+	line-height: 2.6;
+}
+
+
+
+
+span.loudly_part {
+	font-weight: bold;
+}
+span.loudly {
+	font-weight: bold;
+	font-size: 1.15em;
+}
+span.funny {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.maru {
+	font-family: sans-serif;
+}
+span.maru_b {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.letter {
+	font-size: 0.95em;
+	font-family: serif;
+}
+span.letter_let {
+	font-size: 0.95em;
+	font-family: sans-serif;
+}
+span.pop {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.card {
+	font-family: sans-serif;
+}
+span.song {
+	font-family: sans-serif;
+}
+span.article {
+	font-family: sans-serif;
+}
+span.splash {
+	background-color: #cdcdcd;
+	font-weight: bold;
+}
+span.memo {
+	font-size: 0.9em;
+	font-family: sans-serif;
+}
+span.horror {
+	font-family: sans-serif;
+}
+span.whisper {
+	font-size: 0.85em;
+}
+span.wallmsg {
+	font-size: 1.05em;
+	font-family: serif;
+}
+span.flashback {
+	color: #000000;
+	font-weight: bold;
+	font-family: serif;
+}
+img.block_illust {
+	padding-top: 3em;
+	display: block;
+	height: auto;
+	width: auto;
+}
+hr.letterBorder {
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+}
+hr.start {
+	margin-left: 1.1em;
+}
+hr.end {
+	margin-right: 1.1em;
+}
+
+.boekstaaf { vertical-align: top; border: 1px solid; color: #303030; margin: 17px; background: #303032; padding: 3px; border-top-color: #393830; text-decoration: none; display: none; border-bottom-color: #373733; font-size: 12px;  }
