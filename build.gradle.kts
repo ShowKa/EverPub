@@ -49,6 +49,8 @@ dependencies {
     // poi
     implementation("org.apache.poi:poi:4.1.0")
     implementation("org.apache.poi:poi-ooxml:4.1.0")
+    // PDF
+    implementation("org.apache.xmlgraphics:fop:1.0")
 }
 
 tasks.withType<Test> {
