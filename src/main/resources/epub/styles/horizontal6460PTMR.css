@@ -1,0 +1,201 @@
+@charset "utf-8";
+
+body {
+	writing-mode: horizontal-tb;
+	-webkit-writing-mode: horizontal-tb;
+	-moz-writing-mode: horizontal-tb;
+	-o-writing-mode: horizontal-tb;
+	-ms-writing-mode: horizontal-tb;
+	-epub-writing-mode: horizontal-tb;
+	font-size: 100%;
+	font-family: serif;
+}
+body.copyright-page p {
+	font-size: 0.8em;
+	text-align: center;
+	line-height: 1.5;
+}
+body.copyright-page div {
+	margin-top: 1em;
+	margin-bottom: 0em
+}
+section.experience p {
+	font-size: 0.9em;
+	text-align: center;
+}
+section.series p {
+	text-align: center;
+	line-height: 1.9;
+}
+section.pottermore p {
+	text-align: center;
+}
+#experience, #series, #pottermore {
+	margin-top:20%;
+}
+h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+p {
+	font-size: 1em;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	line-height: 1.7;
+	text-align: justify;
+	text-justify: inter-ideograph;
+	text-indent: 0em;
+}
+section.toc p{
+	line-height: 1.75;
+	padding-left: 1em;
+}
+p.toc_chapter {
+	margin-top: 1em;
+}
+span.toc_table {
+	font-weight: bold;
+	font-family: sans-serif;
+}
+span.toc_en {
+	font-size: 0.75em;
+}
+strong {
+	font-weight: bold;
+}
+.g {
+	font-family: sans-serif;
+}
+.m {
+	font-family: serif;
+}
+.right {
+	text-align: right;
+}
+.small {
+	font-size: 0.82em;
+}
+.big {
+	font-size: 1.1em;
+}
+span.ruby_adjust {
+	padding-top: 0.55em;
+	padding-left: inherit;
+	padding-right: inherit;
+	padding-bottom: inherit;
+}
+p.quote {
+	margin: 0em 1em 0em 1em;
+}
+p.quote2 {
+	margin: 0em 1em 0em 2em;
+}
+p.quote3 {
+	margin: 0em 1em 0em 3em;
+}
+p.ind {
+	text-indent: -1em;
+}
+p.news {
+	margin: 0em 1em 0em 1em;
+}
+p.question {
+	margin: 0em 0em 0em 3em;
+	text-indent: -2em;
+}
+p.inscription {
+	margin: 0em 2em 0em 4em;
+}
+p.air {
+	margin: 0em 2em 0em 2em;
+}
+div.board_3d {
+	border: ridge 3px #000000;
+	margin: 0.2em 2em 0.2em 2em;
+	padding: 0.2em;
+}
+span.board_3d {
+	border: ridge 3px #000000;
+	padding: 0.55em;
+	line-height: 2.6;
+}
+span.loudly_part {
+	font-weight: bold;
+}
+span.loudly {
+	font-weight: bold;
+	font-size: 1.15em;
+}
+span.funny {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.maru {
+	font-family: sans-serif;
+}
+span.maru_b {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.letter {
+	font-size: 0.95em;
+	font-family: serif;
+}
+span.letter_let {
+	font-size: 0.95em;
+	font-family: sans-serif;
+}
+span.pop {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+span.card {
+	font-family: sans-serif;
+}
+span.song {
+	font-family: sans-serif;
+}
+span.article {
+	font-family: sans-serif;
+}
+span.splash {
+	background-color: #cdcdcd;
+	font-weight: bold;
+}
+span.memo {
+	font-size: 0.9em;
+	font-family: sans-serif;
+}
+span.horror {
+	font-family: sans-serif;
+}
+span.whisper {
+	font-size: 0.85em;
+}
+span.wallmsg {
+	font-size: 1.05em;
+	font-family: serif;
+}
+span.flashback {
+	color: #000000;
+	font-weight: bold;
+	font-family: serif;
+}
+img.block_illust {
+	padding-left: 3em;
+	display: block;
+	height: auto;
+	width: auto;
+}
+hr.start {
+	margin-bottom: 1.1em;
+}
+hr.end {
+	margin-top: 1.1em;
+}
+
+.center{text-align:center; text-indent:0; margin-top: 2em; }
+
+
+.boekstaaf { font-size: 12px; margin: 24px; padding: 21px; vertical-align: top; border-top-color: #393830; text-decoration: none; border-bottom-color: #373733; background: #303032; color: #303030; border: 1px solid; display: none;  } 
