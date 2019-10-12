@@ -9,6 +9,7 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     private var grade: NmHanGrade = NmHanGrade.MIDDLE
 
     private val separator = "<p class=\"empty\"><br /></p>"
+    private val letterBorder = "<hr class=\"letterBorder\" />"
 
     fun setGrade(grade: NmHanGrade) {
         this.grade = grade
@@ -21,6 +22,7 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
     private fun publishForEach(p: Paragraph): String {
         val ret = when {
             p.isBlockSeparator() -> this.publishSeparator()
+            p.isLetterBorder() -> this.publishLetterBorder()
             p.isDescriptive() -> this.publishDescriptive(p)
             p.isQuote() -> this.publishQuote(p)
             else -> ""
@@ -28,6 +30,10 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
         return ret
                 .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
                 .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
+    }
+
+    private fun publishLetterBorder() : String {
+        return this.letterBorder
     }
 
     private fun publishSeparator(): String {
