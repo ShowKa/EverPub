@@ -18,7 +18,7 @@
     <div>note name:</div>
     <input name="title" type="text" value=""/>
     <div>save:</div>
-    <input name="path" type="text" autofocus/>
+    <input name="path" type="text" />
     <input type="submit" value="EPUB"/>
 </form>
 
@@ -34,8 +34,25 @@
     <div>note name:</div>
     <input name="title" type="text" value="5.1.2"/>
     <div>save:</div>
-    <input name="path" type="text" autofocus/>
+    <input name="path" type="text" />
     <input type="submit" value="EPUB"/>
 </form>
+
+<form action="/u02/g001/notemu">
+    <div>note</div>
+    <div th:text="${defaultNotebook}"/>
+    <div>tags:</div>
+    <select name="tag">
+        <option th:each="tag : ${tagMap}" th:selected="${tag.get('name').equals('Manuscript')}"
+                th:text="${tag.get('name')}"
+                th:value="${tag.get('name')}"/>
+    </select>
+    <div>note name:</div>
+    <input name="title" type="text"  autofocus/>
+    <div>save:</div>
+    <input name="path" type="text" value="~/Desktop/MoonLight"/>
+    <input type="submit" />
+</form>
+
 </body>
 </html>
