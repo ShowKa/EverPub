@@ -54,3 +54,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### MAC
+.DS_Store
+
+logs/

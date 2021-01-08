@@ -7,6 +7,7 @@ import com.showka.everpub.novelstructure.Chapter
 import com.showka.everpub.publish.PublishService
 import com.showka.everpub.publish.docx.PublisherDocx
 import com.showka.everpub.publish.epub.PublisherEpub
+import com.showka.everpub.publish.notemu.PublisherNotemu
 import com.showka.everpub.service.NoteSearch
 import freemarker.template.Configuration
 import org.springframework.beans.factory.annotation.Autowired
@@ -100,6 +101,33 @@ open class U02G001Controller {
             val publisher = PublisherDocx(chapter)
             val title = it.title.replace("\\s+".toRegex(), "")
             val fileName = "$title.docx"
+            publisherService.publish(publisher, "${form.path}/$fileName")
+        }
+        // set form
+        model.addObject("tag", form.tag)
+        model.addObject("title", form.title)
+        model.addObject("path", form.path)
+        model.addObject("notebook", "default note book....")
+        // set view
+        model.viewName = "/u02/u02g001"
+        return model
+    }
+
+    @RequestMapping("/g001/notemu")
+    open fun notemu(@ModelAttribute form: U02G001Form, model: ModelAndView): ModelAndView {
+        // search
+        val notes = noteSearch.search(tag = form.tag, intitle = form.title)
+        val chapters = mutableListOf<Map<String, Any>>()
+        notes.forEach {
+            println(it.title)
+            val note: Note = Note(it)
+            val lines = note.getSentences().map { sentence ->
+                NmLine(sentence.getPlainText())
+            }
+            val chapter = Chapter(it.title, lines)
+            val publisher = PublisherNotemu(chapter)
+            val title = it.title.replace("\\s+".toRegex(), "")
+            val fileName = "$title.html"
             publisherService.publish(publisher, "${form.path}/$fileName")
         }
         // set form
