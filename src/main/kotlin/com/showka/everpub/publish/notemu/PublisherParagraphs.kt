@@ -1,9 +1,12 @@
 package com.showka.everpub.publish.notemu
 
+import com.showka.everpub.novelmarkup.NmHanGrade
 import com.showka.everpub.novelstructure.Paragraph
 import com.showka.everpub.novelstructure.TextComponent
 
 class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
+
+    private var grade: NmHanGrade = NmHanGrade.ELEMENTARY_6
 
     private val separator = "<p class=\"separator\">◇</p>"
     private val letterBorder = "<hr class=\"letterBorder\" />"
@@ -21,8 +24,9 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
             else -> ""
         }
         return ret
-                .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
-                .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
+            .replace("。」".toRegex(), "」")
+            .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
+            .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
     }
 
     private fun publishLetterBorder() : String {
@@ -76,7 +80,19 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
 
     private fun getText(text: TextComponent): String {
         val content = text.line.tokens.joinToString("") {
-            it.getSurface()
+            if (it.getHanGrade().isHigher(this.grade)) {
+                // "|春樹《はるき》"
+                val hrList = it.getHanReading()
+                hrList.joinToString("") { map ->
+                    if (map.isHan) {
+                        "|${map.surface}《${map.reading}》"
+                    } else {
+                        map.surface
+                    }
+                }
+            } else {
+                it.getSurface()
+            }
         }
         return if (text.isEmphasis()) "<strong>$content</strong>" else content
     }
