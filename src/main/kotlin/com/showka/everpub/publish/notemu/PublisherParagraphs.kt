@@ -21,8 +21,9 @@ class PublisherParagraphs constructor(private val paragraphs: List<Paragraph>) {
             else -> ""
         }
         return ret
-                .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
-                .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
+            .replace("。」".toRegex(), "」")
+            .replace("！".toRegex(), "！　").replace("！　」".toRegex(), "！」")
+            .replace("？".toRegex(), "？　").replace("？　」".toRegex(), "？」")
     }
 
     private fun publishLetterBorder() : String {
